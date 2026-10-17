@@ -1,0 +1,573 @@
+.admin-gallery-edit-form {
+  display: grid;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  border: 1px solid #dbeafe;
+  border-radius: 0.875rem;
+  background: #f8fafc;
+}
+
+.admin-gallery-edit-form .admin-label {
+  margin: 0;
+  color: #334155;
+  font-weight: 600;
+}
+
+.admin-gallery-edit-form .admin-input,
+.admin-gallery-edit-form .admin-textarea {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.625rem;
+  background: #fff;
+  color: #0f172a;
+}
+
+.admin-gallery-edit-form .admin-input:focus,
+.admin-gallery-edit-form .admin-textarea:focus {
+  outline: 3px solid rgb(37 99 235 / 15%);
+  border-color: #2563eb;
+}
+
+.admin-gallery-edit-form .admin-textarea {
+  min-height: 5rem;
+  resize: vertical;
+}
+
+.admin-gallery-edit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 0.25rem;
+}
+
+.admin-gallery-edit-actions .admin-button {
+  min-height: 2.5rem;
+  margin: 0;
+  padding: 0.625rem 1rem;
+  border: 0;
+  border-radius: 0.625rem;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 150ms ease, transform 150ms ease;
+}
+
+.admin-gallery-edit-actions .gallery-edit-save {
+  background: #16a34a;
+}
+
+.admin-gallery-edit-actions .gallery-edit-cancel {
+  background: #64748b;
+}
+
+.admin-gallery-edit-actions .admin-button:hover:not(:disabled) {
+  filter: brightness(0.94);
+  transform: translateY(-1px);
+}
+
+.admin-gallery-edit-actions .admin-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+@media (max-width: 520px) {
+  .admin-gallery-edit-form {
+    padding: 0.8rem;
+  }
+
+  .admin-gallery-edit-actions .admin-button {
+    flex: 1 1 100%;
+  }
+}
+/* Inline forms for editing achievements and events */
+.adm-ach-edit-panel,
+.event-edit-panel {
+  margin: 1.25rem 0;
+  padding: 1.25rem;
+  border: 1px solid #dbeafe;
+  border-radius: 1rem;
+  background: #f8fafc;
+}
+
+.adm-ach-edit-panel h3,
+.event-edit-panel h3 {
+  margin: 0 0 1rem;
+  color: #0f172a;
+}
+
+.adm-ach-edit-actions,
+.event-edit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.adm-ach-edit-actions button,
+.event-edit-actions button {
+  min-height: 2.6rem;
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: 0.65rem;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 150ms ease, transform 150ms ease;
+}
+
+.adm-ach-edit-actions .adm-ach-save,
+.event-edit-actions .event-edit-save {
+  background: #16a34a;
+}
+
+.adm-ach-edit-actions .adm-ach-cancel,
+.event-edit-actions .event-edit-cancel {
+  background: #64748b;
+}
+
+.adm-ach-edit-actions button:hover:not(:disabled),
+.event-edit-actions button:hover:not(:disabled) {
+  filter: brightness(0.94);
+  transform: translateY(-1px);
+}
+
+.adm-ach-edit-actions button:disabled,
+.event-edit-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+@media (max-width: 520px) {
+  .adm-ach-edit-panel,
+  .event-edit-panel {
+    padding: 0.85rem;
+  }
+
+  .adm-ach-edit-actions button,
+  .event-edit-actions button {
+    flex: 1 1 100%;
+  }
+}
+
+/* Inline form for editing school leadership profiles */
+.leadership-edit-panel {
+  margin: 1rem 0;
+  padding: 1.15rem;
+  border: 1px solid #dbeafe;
+  border-radius: 1rem;
+  background: #f8fafc;
+}
+
+.leadership-edit-panel h3 {
+  margin: 0 0 1rem;
+  color: #0f172a;
+}
+
+.leadership-edit-panel .admin-label {
+  display: block;
+  margin: 0.8rem 0 0.35rem;
+}
+
+.leadership-edit-panel .admin-input,
+.leadership-edit-panel .admin-textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.leadership-edit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.leadership-edit-actions button {
+  min-height: 2.6rem;
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: 0.65rem;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.leadership-edit-save {
+  background: #16a34a;
+}
+
+.leadership-edit-cancel {
+  background: #64748b;
+}
+
+.leadership-edit-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+@media (max-width: 520px) {
+  .leadership-edit-panel {
+    padding: 0.85rem;
+  }
+
+  .leadership-edit-actions button {
+    flex: 1 1 100%;
+  }
+}
+/* Gallery upload form and image cards */
+#images .gallery-upload-form {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.7fr) minmax(0, 1.8fr);
+  align-items: center;
+  gap: 0.8rem 1rem;
+  margin: 1.5rem 0 1.75rem;
+  padding: 1.25rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  background: linear-gradient(145deg, #f8fafc, #fff);
+  box-shadow: 0 8px 24px rgb(15 23 42 / 5%);
+}
+
+#images .gallery-upload-form .admin-label {
+  margin: 0;
+  color: #334155;
+  font-weight: 650;
+}
+
+#images .gallery-upload-form .admin-input,
+#images .gallery-upload-form .admin-textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.7rem;
+  background: #fff;
+  color: #0f172a;
+  font: inherit;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+#images .gallery-upload-form .admin-input:focus,
+#images .gallery-upload-form .admin-textarea:focus,
+#images .admin-gallery-edit-form .admin-input:focus,
+#images .admin-gallery-edit-form .admin-textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 14%);
+}
+
+#images .gallery-upload-form .admin-textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+}
+
+#images .gallery-upload-form input[type='file'] {
+  padding: 0.5rem;
+}
+
+#images .gallery-upload-form input[type='file']::file-selector-button {
+  margin-right: 0.75rem;
+  padding: 0.55rem 0.8rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#images .gallery-upload-form > .admin-button {
+  grid-column: 1 / -1;
+  justify-self: end;
+  min-height: 2.8rem;
+  margin: 0;
+  padding: 0.7rem 1.15rem;
+  border: 0;
+  border-radius: 0.7rem;
+  background: #2563eb;
+  color: #fff;
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+#images .gallery-upload-form > .admin-button:hover:not(:disabled) {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+#images .gallery-upload-form > .admin-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+#images .admin-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  align-items: stretch;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+#images .admin-gallery-item {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 8px 24px rgb(15 23 42 / 6%);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+#images .admin-gallery-item:hover {
+  transform: translateY(-3px);
+  border-color: #bfdbfe;
+  box-shadow: 0 14px 30px rgb(15 23 42 / 10%);
+}
+
+#images .admin-gallery-item > img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #f1f5f9;
+}
+
+#images .admin-gallery-info {
+  flex: 1;
+  padding: 1rem 1rem 0.25rem;
+}
+
+#images .admin-gallery-info strong {
+  display: block;
+  color: #0f172a;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+#images .admin-gallery-info p {
+  margin: 0.45rem 0 0;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+#images .admin-gallery-item > .admin-button,
+#images .admin-gallery-item > .admin-delete-button {
+  min-height: 2.55rem;
+  width: calc(50% - 1.15rem);
+  margin: 0.75rem 0 1rem 0.75rem !important;
+  padding: 0.6rem 0.5rem;
+  border: 0;
+  border-radius: 0.65rem;
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: filter 150ms ease, transform 150ms ease;
+}
+
+#images .admin-gallery-item > .admin-button {
+  background: #2563eb !important;
+}
+
+#images .admin-gallery-item > .admin-delete-button {
+  background: #dc2626;
+}
+
+#images .admin-gallery-item > .admin-button:hover:not(:disabled),
+#images .admin-gallery-item > .admin-delete-button:hover:not(:disabled) {
+  filter: brightness(0.93);
+  transform: translateY(-1px);
+}
+
+#images .admin-gallery-item > .admin-button:disabled,
+#images .admin-gallery-item > .admin-delete-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+#images .admin-message {
+  padding: 0.85rem 1rem;
+  border: 1px solid #bfdbfe;
+  border-radius: 0.75rem;
+  background: #eff6ff;
+  color: #1e40af;
+}
+
+@media (max-width: 640px) {
+  #images .gallery-upload-form {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.55rem;
+    padding: 1rem;
+  }
+
+  #images .gallery-upload-form > .admin-button {
+    justify-self: stretch;
+    margin-top: 0.35rem;
+  }
+
+  #images .admin-gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+    gap: 0.9rem;
+  }
+}
+
+@media (max-width: 420px) {
+  #images .admin-gallery-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+
+}
+
+
+
+
+/* Admin paneli logotipi */
+.admin-layout .sidebar-logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.65rem 0.55rem 1.15rem;
+  margin-bottom: 0.55rem;
+  border-bottom: 1px solid rgb(255 255 255 / 12%);
+}
+
+.admin-layout .sidebar-logo .school-icon {
+  display: grid;
+  flex: 0 0 3rem;
+  width: 3rem;
+  height: 3rem;
+  margin: 0;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 25%);
+  border-radius: 1rem;
+  background: linear-gradient(140deg, #16b8a6, #3b82f6);
+  box-shadow: 0 8px 22px rgb(22 184 166 / 24%);
+  font-size: 1.55rem;
+  line-height: 1;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.admin-layout .sidebar-logo:hover .school-icon {
+  transform: translateY(-2px) rotate(-3deg);
+  box-shadow: 0 12px 26px rgb(22 184 166 / 34%);
+}
+
+.admin-layout .sidebar-logo > div:last-child {
+  min-width: 0;
+}
+
+.admin-layout .sidebar-logo strong {
+  display: block;
+  color: #fff;
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.admin-layout .sidebar-logo span {
+  display: block;
+  margin-top: 0.2rem;
+  color: #aab9d8;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.035em;
+  line-height: 1.3;
+}
+
+@media (max-width: 1100px) {
+  .admin-layout .sidebar-logo .school-icon {
+    flex-basis: 2.85rem;
+    width: 2.85rem;
+    height: 2.85rem;
+  }
+}
+
+
+
+
+.admin-layout .admin-sidebar {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.admin-layout .sidebar-menu {
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(148 163 184 / 38%) transparent;
+  scrollbar-gutter: stable;
+}
+
+.admin-layout .sidebar-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.admin-layout .sidebar-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-layout .sidebar-menu::-webkit-scrollbar-thumb {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: rgb(148 163 184 / 38%);
+  background-clip: padding-box;
+}
+
+.admin-layout .sidebar-menu::-webkit-scrollbar-thumb:hover {
+  background: rgb(20 184 166 / 78%);
+  background-clip: padding-box;
+}
+
+
+@media (max-height: 700px) and (min-width: 761px) {
+  .admin-layout .sidebar-logo {
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .admin-layout .sidebar-menu {
+    gap: 2px;
+    padding-top: 0.4rem;
+  }
+.admin-layout .sidebar-menu a {
+    min-height: 2.55rem;
+    padding-block: 0.55rem;
+  }
+
+  .admin-layout .sidebar-bottom {
+    padding-top: 0.65rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .admin-layout .sidebar-menu {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    scrollbar-gutter: auto;
+  }
+
+  .admin-layout .sidebar-menu::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "./supabase";
-import "./App.css";
+import "./Maktab.css";
 
 type News = {
   id: number;
@@ -16,10 +16,24 @@ type SchoolSettings = {
   about_text: string | null;
   students_count: number;
   teachers_count: number;
-  classes_count: number;
-  experience_years: number;
   school_image_url: string | null;
   address: string | null;
+  legal_address: string | null;
+  location_type: string | null;
+  building_year: number | null;
+  building_condition: string | null;
+  renovation_year: number | null;
+  renovation_type: string | null;
+  classes_count: number | null;
+  experience_years: number | null;
+  education_language: string | null;
+  shifts_count: number | null;
+  teachers_highest_category_count: number | null;
+  special_classrooms: string | null;
+  assembly_hall_condition: string | null;
+  sports_hall_condition: string | null;
+  library_condition: string | null;
+  cafeteria_condition: string | null;
   phone: string | null;
   email: string | null;
   working_hours: string | null;
@@ -29,6 +43,15 @@ type GalleryImage = {
   image_url: string;
   title: string | null;
   description: string | null;
+  created_at: string;
+};
+
+type SchoolRoom = {
+  id: number;
+  name: string;
+  description: string | null;
+  image_url: string | null;
+  sort_order: number;
   created_at: string;
 };
 
@@ -75,50 +98,19 @@ function App() {
   const [leadership, setLeadership] = useState<Leadership[]>([]);
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [showAllEvents, setShowAllEvents] = useState(false);
-const [showAllAchievements, setShowAllAchievements] = useState(false);
+  // @ts-ignore 
+  const [schoolRooms, setSchoolRooms] = useState<SchoolRoom[]>([]);
+  // @ts-ignore 
+  const [showAllAchievements, setShowAllAchievements] = useState(false);
  const [events, setEvents] = useState<SchoolEvent[]>([]);
-  const defaultGalleryImages: GalleryImage[] = [
-    {
-      id: -1,
-      image_url: "/images.jpg",
-      title: "7-Maktab",
-      description: "Maktabimiz",
-      created_at: "",
-    },
-    {
-      id: -2,
-      image_url: "/maktab2.jpg",
-      title: "Tadbirlar",
-      description: "Maktab hayoti",
-      created_at: "",
-    },
-    {
-      id: -3,
-      image_url: "/maktab3.jpg",
-      title: "O‘quvchilar",
-      description: "Yoshlarimiz",
-      created_at: "",
-    },
-    {
-      id: -4,
-      image_url: "/maktab4.jpg",
-      title: "Taʼlim",
-      description: "Dars jarayoni",
-      created_at: "",
-    },
-    {
-      id: -5,
-      image_url: "/maktab5.jpg",
-      title: "Sport",
-      description: "Musobaqalar",
-      created_at: "",
-    },
-  ];
+
+
 
   useEffect(() => {
     void loadNews();
     void loadSchoolSettings();
     void loadGalleryImages();
+    void loadRooms();
     void loadLeadership();
     void loadEvents();
     void loadAchievements();
@@ -160,7 +152,7 @@ const [showAllAchievements, setShowAllAchievements] = useState(false);
 
       if (selectedImage === null) return;
 
-      const images = [...defaultGalleryImages, ...galleryImages];
+      const images = galleryImages;
       if (!images.length) return;
 
       if (e.key === "ArrowRight") {
@@ -264,26 +256,45 @@ async function loadEvents() {
     setGalleryImages(data || []);
   }
 
-  async function loadLeadership() {
+  async function loadRooms() {
     const { data, error } = await supabase
-      .from("school_leadership")
-      .select("id,full_name,position,image_url,phone,description,created_at")
+      .from("school_rooms")
+      .select("id,name,description,image_url,sort_order,created_at")
+      .order("sort_order", { ascending: true })
       .order("created_at", { ascending: false })
-      .limit(8);
+      .limit(50);
 
     if (error) {
-      console.error("Leadership error:", error);
+      console.error("Rooms error:", error.message);
       return;
     }
 
-    setLeadership(data || []);
+    setSchoolRooms(data || []);
   }
+
+  
+async function loadLeadership() {
+  const { data, error } = await supabase
+    .from("school_leadership")
+    .select("id,full_name,position,image_url,phone,description,created_at,sort_order")
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: false })
+    .limit(8);
+
+  if (error) {
+    console.error("Leadership error:", error);
+    return;
+  }
+
+  setLeadership(data || []);
+}
+
 
   async function loadSchoolSettings() {
     const { data, error } = await supabase
       .from("school_settings")
       .select(
-        "school_name,slogan,about_text,students_count,teachers_count,classes_count,experience_years,school_image_url,address,phone,email,working_hours",
+        "school_name,slogan,about_text,students_count,teachers_count,classes_count,experience_years,school_image_url,address,legal_address,location_type,building_year,building_condition,renovation_year,renovation_type,education_language,shifts_count,teachers_highest_category_count,special_classrooms,assembly_hall_condition,sports_hall_condition,library_condition,cafeteria_condition,phone,email,working_hours",
       )
       .limit(1)
       .maybeSingle();
@@ -341,6 +352,8 @@ async function loadEvents() {
             <a href="#gallery" onClick={() => setMenuOpen(false)}>
               Galereya
             </a>
+
+            
                 <a href="#achievements" onClick={() => setMenuOpen(false)}>
                   Yutuqlar
                 </a>
@@ -373,7 +386,7 @@ async function loadEvents() {
           <div className="hero-text">
             <p className="eyebrow">
               {schoolSettings?.school_name ||
-                "7-SONLI UMUMIY O‘RTA TA’LIM MAKTABI"}
+                "Baliqchi tumani 7-umumiy o‘rta ta’lim maktabi"}
             </p>
 
             <h1>{schoolSettings?.slogan || "Kelajak sari birgalikda!"}</h1>
@@ -407,7 +420,7 @@ async function loadEvents() {
 
   <div className="hero-photo-overlay">
     <h3>
-      {schoolSettings?.school_name || "7-MAKTAB"}
+      7-sonli umumiy o‘rta ta’lim maktabi
     </h3>
 
     <p>Ta'lim • Tarbiya • Kelajak</p>
@@ -421,23 +434,23 @@ async function loadEvents() {
       <section className="stats scroll-reveal">
         <div className="container stats-grid">
           <div className="stat">
-            <strong>{schoolSettings?.students_count ?? 1200}+</strong>{" "}
-            <span>O‘quvchilar</span>
+            <strong>{schoolSettings?.students_count ?? 906}</strong>
+            <span>O‘quvchi</span>
           </div>
 
           <div className="stat">
-            <strong>{schoolSettings?.teachers_count ?? 80}+</strong>
-            <span>O‘qituvchilar</span>
+            <strong>{schoolSettings?.teachers_count ?? 90}</strong>
+            <span>Ustoz</span>
           </div>
 
           <div className="stat">
-            <strong>{schoolSettings?.classes_count ?? 35}+</strong>
-            <span>Sinflar</span>
+            <strong>{schoolSettings?.classes_count ?? "—"}</strong>
+            <span>Sinf</span>
           </div>
 
           <div className="stat">
-            <strong>{schoolSettings?.experience_years ?? 25}+</strong>
-            <span>Yillik tajriba</span>
+            <strong>{schoolSettings?.experience_years ?? "—"}</strong>
+            <span>Tajriba yili</span>
           </div>
         </div>
       </section>
@@ -460,18 +473,15 @@ async function loadEvents() {
             <div className="about-main">
               <p>
                 {schoolSettings?.about_text ||
-                  "7-sonli umumiy o‘rta ta’lim maktabi o‘quvchilarga zamonaviy va sifatli ta’lim berishga intiladi."}
+                  `Maktab ${schoolSettings?.legal_address || "Baliqchi tumani “Barkamol MFY”, Yangi yo‘l ko‘chasi 28-uy"} manzilida, ${schoolSettings?.location_type?.toLowerCase() || "qishloq"} hududida joylashgan. Asosiy bino ${schoolSettings?.building_year ?? 1985}-yilda qurilgan va ${schoolSettings?.building_condition?.toLowerCase() || "yaxshi"} holatda.`}
               </p>
 
               <p>
-                Maktabimizda fan olimpiadalari, sport musobaqalari, madaniy
-                tadbirlar va turli loyihalar muntazam tashkil etiladi.
+                Bino {schoolSettings?.renovation_year ?? 2018}-yilda {schoolSettings?.renovation_type?.toLowerCase() || "joriy ta’mir"} qilingan. Ta’lim {schoolSettings?.education_language?.toLowerCase() || "o‘zbek"} tilida {schoolSettings?.shifts_count ?? 2} smenada olib boriladi. {schoolSettings?.teachers_count ?? 90} nafar pedagogning {schoolSettings?.teachers_highest_category_count ?? 11} nafari oliy toifali.
               </p>
 
               <p>
-                Bizning asosiy maqsadimiz — o‘quvchilarning bilimini oshirish,
-                ularning qobiliyatlarini rivojlantirish va kelajakdagi hayotiga
-                mustahkam poydevor yaratish.
+                Maxsus fan xonalari {schoolSettings?.special_classrooms?.toLowerCase() || "jihozlangan"}. Sport zali — {schoolSettings?.sports_hall_condition?.toLowerCase() || "mavjud, yaxshi"}; kutubxona — {schoolSettings?.library_condition?.toLowerCase() || "mavjud, yaxshi"}; oshxona — {schoolSettings?.cafeteria_condition?.toLowerCase() || "mavjud, yaxshi"}. Faollar zali — {schoolSettings?.assembly_hall_condition?.toLowerCase() || "mavjud, ta’mirtalab"}.
               </p>
             </div>
 
@@ -867,6 +877,7 @@ async function loadEvents() {
 </section>
 
 
+
       {/* ================= GALLERY ================= */}
       <section id="gallery" className="section gallery-section scroll-reveal">
         <div className="container">
@@ -884,7 +895,7 @@ async function loadEvents() {
           </div>
 
           <div className="gallery-grid">
-            {[...defaultGalleryImages, ...galleryImages].map((image, index) => (
+            {galleryImages.map((image, index) => (
               <button
                 type="button"
                 key={`${image.id}-${index}`}
@@ -935,7 +946,7 @@ async function loadEvents() {
               e.stopPropagation();
 
               setSelectedImage((current) => {
-                const images = [...defaultGalleryImages, ...galleryImages];
+                const images = galleryImages;
 
                 if (current === null) return 0;
 
@@ -949,7 +960,7 @@ async function loadEvents() {
 
           <img
             src={
-              [...defaultGalleryImages, ...galleryImages][selectedImage]
+              galleryImages[selectedImage]
                 ?.image_url
             }
             alt="7-Maktab"
@@ -968,7 +979,7 @@ async function loadEvents() {
               e.stopPropagation();
 
               setSelectedImage((current) => {
-                const images = [...defaultGalleryImages, ...galleryImages];
+                const images = galleryImages;
 
                 if (current === null) return 0;
 
@@ -982,137 +993,15 @@ async function loadEvents() {
 
           <div className="lightbox-counter">
             {selectedImage + 1} /{" "}
-            {defaultGalleryImages.length + galleryImages.length}
+            {galleryImages.length}
           </div>
         </div>
       )}
 
-      {/* ================= FAQ ================= */}
-
-      <section className="section faq-section scroll-reveal">
-        <div className="container">
-          <div className="section-heading centered">
-            <p className="section-label">SAVOLLAR</p>
-
-            <h2>Ko‘p beriladigan savollar</h2>
-          </div>
-
-          <div className="faq-grid">
-            <details>
-              <summary>Maktabda nechta o‘quvchi tahsil oladi?</summary>
-
-              <p>Hozirda maktabimizda 1200 dan ortiq o‘quvchi tahsil oladi.</p>
-            </details>
-
-            <details>
-              <summary>Maktabda qanday tadbirlar o‘tkaziladi?</summary>
-
-              <p>
-                Fan olimpiadalari, sport musobaqalari, madaniy tadbirlar va
-                turli loyihalar muntazam tashkil etiladi.
-              </p>
-            </details>
-
-            <details>
-              <summary>Maktab bilan qanday bog‘lanish mumkin?</summary>
-
-              <p>
-                Aloqa bo‘limidagi telefon raqami yoki maktab manzili orqali
-                bog‘lanishingiz mumkin.
-              </p>
-            </details>
-
-            <details>
-              <summary>Yangiliklarni qayerdan ko‘rish mumkin?</summary>
-
-              <p>
-                Barcha yangi ma'lumotlar saytning “Yangiliklar” bo‘limida e'lon
-                qilinadi.
-              </p>
-            </details>
-          </div>
-        </div>
-      </section>
-
-
-    {/* =================maktab rahbaryati ================= */}
+      
 
 
 
-
-{/* <section
-  id="leadership"
-  className="section leadership-section scroll-reveal"
->
-  <div className="container">
-
-    <div className="section-heading">
-      <div>
-        <p className="section-label">
-          RAHBARIYAT
-        </p>
-
-        <h2>
-          Maktab rahbariyati
-        </h2>
-
-        <p className="gallery-description">
-          Maktabimiz rivoji va taʼlim sifatini
-          taʼminlash yo‘lida faoliyat yuritayotgan
-          rahbariyat aʼzolari.
-        </p>
-      </div>
-    </div>
-
-    <div className="leadership-grid">
-      {leadership.map((person) => (
-        <div
-          className="leadership-card"
-          key={person.id}
-        >
-          {person.image_url ? (
-            <img
-              src={person.image_url}
-              alt={`${person.full_name} — ${person.position}`}
-              loading="lazy"
-              decoding="async"
-              width="600"
-              height="700"
-            />
-          ) : (
-            <div className="leadership-placeholder">
-              👤
-            </div>
-          )}
-
-          <div className="leadership-info">
-            <h3>
-              {person.full_name}
-            </h3>
-
-            <p className="leadership-position">
-              {person.position}
-            </p>
-
-            {person.description && (
-              <p>
-                {person.description}
-              </p>
-            )}
-
-            {person.phone && (
-              <a href={`tel:${person.phone}`}>
-                📞 {person.phone}
-              </a>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
-
-  </div>
-</section> */}
-   
 
     {/* ================= Maktab Yutqlari ================= */}
 
@@ -1211,6 +1100,55 @@ async function loadEvents() {
 
 
 
+{/* ================= FAQ ================= */}
+
+      <section className="section faq-section scroll-reveal">
+        <div className="container">
+          <div className="section-heading centered">
+            <p className="section-label">SAVOLLAR</p>
+
+            <h2>Ko‘p beriladigan savollar</h2>
+          </div>
+
+          <div className="faq-grid">
+            <details>
+              <summary>Maktabda nechta o‘quvchi tahsil oladi?</summary>
+
+              <p>Hozirda maktabimizda       <strong>{schoolSettings?.students_count ?? 906}</strong>
+             dan ortiq o‘quvchi tahsil oladi.</p>
+            </details>
+
+            <details>
+              <summary>Maktabda qanday tadbirlar o‘tkaziladi?</summary>
+
+              <p>
+                Fan olimpiadalari, sport musobaqalari, madaniy tadbirlar va
+                turli loyihalar muntazam tashkil etiladi.
+              </p>
+            </details>
+
+            <details>
+              <summary>Maktab bilan qanday bog‘lanish mumkin?</summary>
+
+              <p>
+                Aloqa bo‘limidagi telefon raqami yoki maktab manzili orqali
+                bog‘lanishingiz mumkin.
+              </p>
+            </details>
+
+            <details>
+              <summary>Yangiliklarni qayerdan ko‘rish mumkin?</summary>
+
+              <p>
+                Barcha yangi ma'lumotlar saytning “Yangiliklar” bo‘limida e'lon
+                qilinadi.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+
 
 
       {/* ================= CONTACT ================= */}
@@ -1222,7 +1160,7 @@ async function loadEvents() {
             <div>
               <p className="section-label">ALOQA</p>
 
-              <h2>Biz bilan bog‘laning</h2>
+              <h2>Biz bilan bog‘laning 📞</h2>
 
               <p>
                 Maktabimiz faoliyati, ta’lim jarayoni va boshqa savollar
@@ -1239,8 +1177,9 @@ async function loadEvents() {
                 <span>Manzil</span>
 
                 <strong>
-                  {schoolSettings?.address ||
-                    "Andijon viloyati, Baliqchi tumani, Barkamol MFY"}
+                  {schoolSettings?.legal_address ||
+                    schoolSettings?.address ||
+                    "Baliqchi tumani “Barkamol MFY”, Yangi yo‘l ko‘chasi 28-uy"}
                 </strong>
 
                 <p>Maktab manzili</p>
@@ -1254,24 +1193,26 @@ async function loadEvents() {
               <div>
                 <span>Telefon</span>
 
-                <strong>{schoolSettings?.phone || "+998 XX XXX XX XX"}</strong>
+                <strong>{schoolSettings?.phone || "+998 97 169 08 07"}</strong>
 
                 <p>Biz bilan telefon orqali bog‘laning</p>
               </div>
             </div>
 
             {/* EMAIL */}
-            <div className="contact-card">
-              <div className="contact-icon">✉️</div>
+            {schoolSettings?.email && (
+              <div className="contact-card">
+                <div className="contact-icon">✉️</div>
 
-              <div>
-                <span>Elektron pochta</span>
+                <div>
+                  <span>Elektron pochta</span>
 
-                <strong>{schoolSettings?.email || "7maktab@example.uz"}</strong>
+                  <strong>{schoolSettings.email}</strong>
 
-                <p>Savollaringizni elektron pochta orqali yuboring</p>
+                  <p>Savollaringizni elektron pochta orqali yuboring</p>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* ISH VAQTI */}
             <div className="contact-card">
@@ -1358,12 +1299,17 @@ async function loadEvents() {
             </div>
 
             <div className="footer-column footer-contact">
-              <h3>Aloqa</h3>
 
-              <p>📍 Andijon viloyati</p>
-              <p>Baliqchi tumani, Barkamol MFY</p>
-              <p>📞 +998 97 169 08 07</p>
-              <p>✉️ 7maktab@example.uz</p>
+<h3>Manzil 📍</h3>
+ <strong>
+                  {schoolSettings?.legal_address ||
+                    schoolSettings?.address ||
+                    "Baliqchi tumani “Barkamol MFY”, Yangi yo‘l ko‘chasi 28-uy"}
+                </strong>
+                    <h5>Aloqa  📞 </h5>
+                                <strong>
+                                  {schoolSettings?.phone || "+998 97 169 08 07"}</strong>
+              {schoolSettings?.email && <p>✉️ {schoolSettings.email}</p>}
             </div>
           </div>
 
