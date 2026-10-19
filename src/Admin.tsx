@@ -172,7 +172,9 @@ async function loadAchievements() {
   const { data, error } = await supabase
     .from('school_achievements')
     .select('id,title,description,achievement_date,category,image_url,created_at')
-    .order('sort_order', { ascending: true })
+    
+.order('created_at', { ascending: false })
+
     .limit(50)
   if (error) {
     setMessage(
@@ -626,7 +628,9 @@ async function loadGalleryImages() {
   const { data, error } = await supabase
     .from('school_gallery')
     .select('id,image_url,title,description,created_at')
-    .order('sort_order', { ascending: true })
+  
+.order('created_at', { ascending: false })
+
     .limit(40)
   if (error) {
     setMessage('Rasmlarni yuklashda xato: ' + error.message)
@@ -773,7 +777,9 @@ async function loadLeadership() {
   const { data, error } = await supabase
     .from('school_leadership')
     .select('id,full_name,position,image_url,phone,description,created_at')
-    .order('sort_order', { ascending: true })
+  
+.order('created_at', { ascending: false })
+
     .limit(20)
   if (error) {
     setMessage(
@@ -1180,7 +1186,9 @@ async function login() {
     const { data, error } = await supabase
       .from('news')
       .select('id,title,content,image_url,created_at')
-      .order('sort_order', { ascending: true })
+      
+.order('created_at', { ascending: false })
+
       .limit(50)
     if (error) {
       setMessage(error.message)
