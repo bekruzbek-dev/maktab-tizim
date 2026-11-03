@@ -1,0 +1,40 @@
+
+name: Supabase Keep Alive
+
+on:
+  schedule:
+    - cron: "17 2,14 * * *"
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Supabase database activity
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -e
+
+          TABLES=(
+            news
+            school_settings
+            school_gallery
+            school_leadership
+            school_achievements
+            school_events
+          )
+
+          for TABLE in "${TABLES[@]}"; do
+            echo "Checking $TABLE..."
+
+            curl --fail-with-body --silent --show-error \
+              -H "apikey: $SUPABASE_ANON_KEY" \
+              "$SUPABASE_URL/rest/v1/$TABLE?select=*&limit=1"
+
+            echo ""
+          done
+
+          echo "Supabase check completed!"
