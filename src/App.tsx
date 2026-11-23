@@ -114,15 +114,6 @@ const staticPageSlugs = new Set([
   "school",
 ]);
 
-function slugify(value: string) {
-  return (value || "")
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "") || "page";
-}
 
 function getCurrentSlug() {
   if (typeof window === "undefined") return "";
@@ -145,8 +136,7 @@ function App() {
   const [leadership, setLeadership] = useState<Leadership[]>([]);
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [showAllEvents, setShowAllEvents] = useState(false);
-  const [schoolRooms, setSchoolRooms] = useState<SchoolRoom[]>([]);
-  const [events, setEvents] = useState<SchoolEvent[]>([]);
+const [, setSchoolRooms] = useState<SchoolRoom[]>([]);  const [events, setEvents] = useState<SchoolEvent[]>([]);
   const [schoolPages, setSchoolPages] = useState<SchoolPage[]>([]);
 
   const currentPageSlug = useMemo(() => getCurrentSlug(), []);
