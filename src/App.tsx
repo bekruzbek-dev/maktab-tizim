@@ -364,15 +364,10 @@ const [, setSchoolRooms] = useState<SchoolRoom[]>([]);  const [events, setEvents
             <a href="#events" onClick={() => setMenuOpen(false)}>Tadbirlar</a>
             <a href="#gallery" onClick={() => setMenuOpen(false)}>Galereya</a>
             <a href="#achievements" onClick={() => setMenuOpen(false)}>Yutuqlar</a>
-            {dynamicMenuPages.map((page) => (
-              <a key={page.id} href={`/${page.slug}`} onClick={() => setMenuOpen(false)}>
-                {page.icon || "📄"} {page.title}
-              </a>
-            ))}
+
+            
             <a href="#contact" onClick={() => setMenuOpen(false)}>Aloqa</a>
-            <a href="/admin" className="admin-link" onClick={() => setMenuOpen(false)}>
-              Admin
-            </a>
+        
           </nav>
 
           <button
