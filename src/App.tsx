@@ -882,7 +882,6 @@ const [, setSchoolRooms] = useState<SchoolRoom[]>([]);  const [events, setEvents
                   </div>
                 </div>
               )}
-
               <div className="contact-card">
                 <div className="contact-icon">🕐</div>
                 <div>
@@ -892,11 +891,11 @@ const [, setSchoolRooms] = useState<SchoolRoom[]>([]);  const [events, setEvents
                 </div>
               </div>
             </div>
->
           </div>
         </section>
       </main>
-
+      
+      
       <footer className="site-footer">
         <div className="container">
           <div className="footer-main">
