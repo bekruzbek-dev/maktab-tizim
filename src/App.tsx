@@ -345,6 +345,75 @@ const [, setSchoolRooms] = useState<SchoolRoom[]>([]);  const [events, setEvents
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+
+
+  
+  // CMS orqali yaratilgan dinamik sahifani ko'rsatish
+  if (currentPage && !staticPageSlugs.has(currentPageSlug)) {
+    return (
+      <div className="site">
+        <header className="navbar">
+          <div className="container nav-inner">
+            <a href="/" className="logo">
+              <span>7</span> MAKTAB
+            </a>
+
+            <nav className="nav-menu">
+              <a href="/">Bosh sahifa</a>
+              {dynamicMenuPages.map((page) => (
+                <a key={page.id} href={`/${page.slug}`}>
+                  {page.title}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </header>
+
+        <main className="container">
+          <section className="section">
+            <div className="section-heading">
+              <div>
+                <p className="section-label">7-MAKTAB</p>
+                <h1>{currentPage.title}</h1>
+              </div>
+            </div>
+
+            {currentPage.image_url && (
+              <img
+                src={currentPage.image_url}
+                alt={currentPage.title}
+                loading="lazy"
+                decoding="async"
+                style={{
+                  width: "100%",
+                  maxHeight: "450px",
+                  objectFit: "cover",
+                  borderRadius: "16px",
+                  marginBottom: "24px",
+                }}
+              />
+            )}
+
+            {currentPage.description && (
+              <p>{currentPage.description}</p>
+            )}
+
+            <div style={{ whiteSpace: "pre-wrap", lineHeight: 1.8 }}>
+              {currentPage.content}
+            </div>
+          </section>
+        </main>
+
+        <footer className="site-footer">
+          <div className="container">
+            <p>© 2026 7-MAKTAB. Barcha huquqlar himoyalangan.</p>
+          </div>
+        </footer>
+      </div>
+    );
+  }
+
+
   
 
   return (
@@ -368,6 +437,16 @@ const [, setSchoolRooms] = useState<SchoolRoom[]>([]);  const [events, setEvents
             
             <a href="#contact" onClick={() => setMenuOpen(false)}>Aloqa</a>
         
+{dynamicMenuPages.map((page) => (
+  <a
+    key={page.id}
+    href={`/${page.slug}`}
+    onClick={() => setMenuOpen(false)}
+  >
+    {page.title}
+  </a>
+))}
+
           </nav>
 
           <button
