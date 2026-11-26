@@ -144,10 +144,7 @@ const [, setSchoolRooms] = useState<SchoolRoom[]>([]);  const [events, setEvents
     (page) => page.is_active && page.slug === currentPageSlug,
   );
 
-  const dynamicMenuPages = useMemo(
-    () => schoolPages.filter((page) => page.is_active && page.show_in_menu),
-    [schoolPages],
-  );
+
 
   useEffect(() => {
     void loadNews();
