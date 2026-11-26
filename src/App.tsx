@@ -360,11 +360,7 @@ const [, setSchoolRooms] = useState<SchoolRoom[]>([]);  const [events, setEvents
 
             <nav className="nav-menu">
               <a href="/">Bosh sahifa</a>
-              {dynamicMenuPages.map((page) => (
-                <a key={page.id} href={`/${page.slug}`}>
-                  {page.title}
-                </a>
-              ))}
+             
             </nav>
           </div>
         </header>
@@ -437,15 +433,8 @@ const [, setSchoolRooms] = useState<SchoolRoom[]>([]);  const [events, setEvents
             
             <a href="#contact" onClick={() => setMenuOpen(false)}>Aloqa</a>
         
-{dynamicMenuPages.map((page) => (
-  <a
-    key={page.id}
-    href={`/${page.slug}`}
-    onClick={() => setMenuOpen(false)}
-  >
-    {page.title}
-  </a>
-))}
+
+            
 
           </nav>
 
