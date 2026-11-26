@@ -892,16 +892,7 @@ const [, setSchoolRooms] = useState<SchoolRoom[]>([]);  const [events, setEvents
                 </div>
               </div>
             </div>
-
-            <div className="contact-map">
-              <iframe
-                title="7-sonli maktab xaritasi"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2923.145410105192!2d71.91611699688272!3d40.87823825348676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb59c968f5b8c5%3A0x5f3184a3c6fa4c3a!2s7-Maktab!5e0!3m2!1suz!2s!4v1712039820000!5m2!1suz!2s"
-                loading="lazy"
-                allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
+>
           </div>
         </section>
       </main>
